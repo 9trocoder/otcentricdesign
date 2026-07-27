@@ -1,0 +1,150 @@
+:root {
+  /* Color Palette - Modern Contemporary Luxury (Hiroshi Decor Studio aesthetic) */
+  --bg-warm-creamy: #faf8f5;     /* Luminous Alabaster / Off-White */
+  --bg-card: #ffffff;            /* Pure Crisp White */
+  --bg-pure: #ffffff;
+  --bg-subtle: #f4f3ef;          /* Muted Greige */
+  
+  --color-primary: #181818;      /* Deep Charcoal / Near Black */
+  --color-primary-hover: #333333;
+  --color-secondary: #242424;    /* Rich Dark Slate */
+  --color-secondary-hover: #000000;
+  --color-accent: #0A5F38;       /* Official Company Primary Emerald Green */
+  --color-accent-hover: #074729;  /* Darker Forest Hover */
+  --color-brand: #0A5F38;
+  --color-dark: #181818;         /* Crisp Dark Graphite */
+  --color-light: #f4f2ec;        /* Soft Creamy Greige */
+  --color-muted: #666666;        /* Muted Medium Slate */
+  --color-border: rgba(24, 24, 24, 0.08); /* Subtle hairline border */
+  
+  /* Borders & Shadows - Modern Refined Luxury */
+  --border-thick: 1px solid var(--color-dark);
+  --border-thin: 1px solid var(--color-border);
+  --border-fine: 1px solid rgba(24, 24, 24, 0.06);
+  --border-double: 1px solid var(--color-dark);
+  
+  --shadow-retro-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+  --shadow-retro: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --shadow-retro-lg: 0 20px 40px rgba(0, 0, 0, 0.09);
+  --shadow-retro-hover: 0 14px 32px rgba(0, 0, 0, 0.08);
+  
+  /* Fonts - Modern Sans combined with High-end Luxury Serif */
+  --font-serif: 'Instrument Serif', 'Playfair Display', Cormorant Garamond, Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Grotesk', ui-monospace, monospace;
+  
+  /* Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-warm-creamy);
+  color: var(--color-dark);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar - Modern Clean */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-warm-creamy);
+}
+::-webkit-scrollbar-thumb {
+  background: #d4cfc7;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-dark);
+  letter-spacing: -0.01em;
+}
+
+p {
+  font-family: var(--font-sans);
+}
+
+/* Main Layout Wrapper */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography helpers */
+.retro-title {
+  font-family: var(--font-serif);
+  font-size: 4.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .retro-title {
+    font-size: 2.8rem;
+  }
+}
+
+/* Popover & Dialog styling - Modern Glass & Clean Shadow */
+dialog {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-retro-lg);
+  padding: 0;
+  margin: auto;
+  max-width: 90vw;
+  width: 650px;
+  overflow: hidden;
+}
+
+dialog::backdrop {
+  background-color: rgba(18, 18, 18, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+dialog:not([open]) {
+  display: none;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.96); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
