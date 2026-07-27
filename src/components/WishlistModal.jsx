@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { PRODUCTS } from '../data';
 import { sendSingleProductWhatsApp } from '../utils/whatsapp';
 
@@ -32,98 +32,100 @@ export default function WishlistModal({
   return (
     <dialog 
       ref={dialogRef} 
-      className="retro-cart-dialog wishlist-dialog"
+      className="wishlist-modal-dialog"
       closedby="any"
       onClose={onClose}
       aria-labelledby="wishlist-dialog-title"
     >
-      <div className="cart-wrapper">
-        <div className="cart-header">
-          <div className="wishlist-title-lockup">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#0A5F38" stroke="#0A5F38" strokeWidth="2">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <h2 id="wishlist-dialog-title">Your Saved Favorites</h2>
+      <div className="wishlist-modal-wrapper">
+        {/* Header Lockup */}
+        <div className="wishlist-modal-header">
+          <div className="wishlist-modal-title-group">
+            <div className="wishlist-badge-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A5F38" stroke="#0A5F38" strokeWidth="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 id="wishlist-dialog-title">Saved Favorites</h2>
+              <span className="wishlist-subtitle-count">
+                {wishlistedProducts.length} {wishlistedProducts.length === 1 ? 'curated piece' : 'curated pieces'}
+              </span>
+            </div>
           </div>
-          <button className="cart-close-btn" onClick={onClose} aria-label="Close wishlist">
+          <button className="wishlist-modal-close-btn" onClick={onClose} aria-label="Close wishlist">
             ✕
           </button>
         </div>
 
+        {/* Modal Body */}
         {wishlistedProducts.length === 0 ? (
-          <div className="empty-cart-state">
-            <svg 
-              width="48" 
-              height="48" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="1.5"
-              className="empty-icon"
-            >
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <p>Your wishlist is currently empty.</p>
-            <p className="empty-sub-text">Click the heart icon on any furniture piece to save it for your luxury interior project.</p>
-            <button className="continue-shopping-btn" onClick={onClose}>
+          <div className="wishlist-empty-container">
+            <div className="wishlist-empty-icon-box">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#0A5F38" strokeWidth="1.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </div>
+            <h3>Your Favorites List is Empty</h3>
+            <p>Click the heart icon on any architectural furniture piece in our Vault to save it to your personal design collection.</p>
+            <button className="wishlist-explore-btn" onClick={onClose}>
               Explore Furniture Vault
             </button>
           </div>
         ) : (
-          <div className="wishlist-items-container">
-            <div className="cart-items-list">
-              {wishlistedProducts.map((item) => (
-                <div key={item.id} className="cart-item-row wishlist-item-row">
-                  <img 
-                    src={item.imageUrl} 
-                    alt={item.name} 
-                    className="cart-item-img" 
-                    onClick={() => {
-                      onSelectProduct(item);
-                      onClose();
-                    }}
-                  />
-                  
-                  <div className="cart-item-details">
-                    <div className="cart-item-header">
-                      <h3 
-                        onClick={() => {
-                          onSelectProduct(item);
-                          onClose();
-                        }}
-                        style={{ cursor: 'pointer' }}
-                      >
-                        {item.name}
-                      </h3>
-                      <button 
-                        className="cart-remove-btn" 
-                        onClick={() => onRemoveFromWishlist(item.id)}
-                        aria-label={`Remove ${item.name} from wishlist`}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                    <p className="cart-item-meta">{item.category}</p>
-                    <p className="wishlist-item-price">₦{item.price.toLocaleString()}</p>
+          <div className="wishlist-modal-scroll-area">
+            {wishlistedProducts.map((item) => (
+              <div key={item.id} className="wishlist-product-card-row">
+                <div 
+                  className="wishlist-card-thumb-wrap"
+                  onClick={() => {
+                    onSelectProduct(item);
+                    onClose();
+                  }}
+                >
+                  <img src={item.imageUrl} alt={item.name} className="wishlist-card-img" />
+                  <span className="wishlist-card-category">{item.category}</span>
+                </div>
+                
+                <div className="wishlist-card-content">
+                  <div className="wishlist-card-top-row">
+                    <h3 
+                      onClick={() => {
+                        onSelectProduct(item);
+                        onClose();
+                      }}
+                      className="wishlist-card-name"
+                    >
+                      {item.name}
+                    </h3>
+                    <button 
+                      className="wishlist-card-remove-btn" 
+                      onClick={() => onRemoveFromWishlist(item.id)}
+                      title="Remove from favorites"
+                    >
+                      ✕
+                    </button>
+                  </div>
 
-                    <div className="wishlist-actions-row">
-                      <button 
-                        className="wishlist-add-bag-btn"
-                        onClick={() => onAddToCart(item)}
-                      >
-                        Add to Bag
-                      </button>
-                      <button 
-                        className="wishlist-wa-btn"
-                        onClick={() => sendSingleProductWhatsApp(item, 1)}
-                      >
-                        💬 WhatsApp
-                      </button>
-                    </div>
+                  <p className="wishlist-card-price">₦{item.price.toLocaleString()}</p>
+
+                  <div className="wishlist-card-button-group">
+                    <button 
+                      className="wishlist-add-cart-btn"
+                      onClick={() => onAddToCart(item)}
+                    >
+                      + Add to Bag
+                    </button>
+                    <button 
+                      className="wishlist-wa-inquire-btn"
+                      onClick={() => sendSingleProductWhatsApp(item, 1)}
+                    >
+                      💬 Inquire on WhatsApp
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

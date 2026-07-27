@@ -16,7 +16,11 @@ export function sendWhatsAppOrder(cartItems, customerDetails = {}) {
     message += `${index + 1}. *${item.name}*\n`;
     message += `   • Quantity: ${item.quantity}\n`;
     message += `   • Unit Price: ₦${item.price.toLocaleString()}\n`;
-    message += `   • Subtotal: ₦${(item.price * item.quantity).toLocaleString()}\n\n`;
+    message += `   • Subtotal: ₦${(item.price * item.quantity).toLocaleString()}\n`;
+    if (item.imageUrl) {
+      message += `   • 🖼️ Product Image: ${item.imageUrl}\n`;
+    }
+    message += `\n`;
   });
 
   message += `💰 *TOTAL ESTIMATE:* ₦${totalAmount.toLocaleString()}\n\n`;
@@ -47,8 +51,11 @@ export function sendSingleProductWhatsApp(product, quantity = 1) {
   message += `🪑 *${product.name}*\n`;
   message += `• Category: ${product.category}\n`;
   message += `• Quantity: ${quantity}\n`;
-  message += `• Total Price: ₦${(product.price * quantity).toLocaleString()}\n\n`;
-  message += `Please confirm availability and delivery options. Thank you!`;
+  message += `• Total Price: ₦${(product.price * quantity).toLocaleString()}\n`;
+  if (product.imageUrl) {
+    message += `• 🖼️ Product Image: ${product.imageUrl}\n`;
+  }
+  message += `\nPlease confirm availability and delivery options. Thank you!`;
 
   const encodedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/${STUDIO_WHATSAPP_NUMBER}?text=${encodedMessage}`;
